@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 //  qui est composée de catégories et de produits stockés "en dur"
 class BoutiqueService
 {
-
     // renvoie toutes les catégories
     public function findAllCategories(): array
     {
@@ -203,7 +202,7 @@ JSON;
             "texte" : "Usage interne ou externe",
             "visuel" : "images/produits/gel.jpg",
             "prix" : 100.00
-        }, 
+        },
         {
             "id" : 11,
             "idCategorie" : 4,
@@ -211,7 +210,7 @@ JSON;
             "texte" : "Passe incognito face aux virus",
             "visuel" : "images/produits/masque.jpg",
             "prix" : 200.0
-        }, 
+        },
         {
             "id" : 12,
             "idCategorie" : 4,
