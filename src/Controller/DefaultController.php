@@ -42,7 +42,17 @@ class DefaultController extends AbstractController
     }
 
     // TODO : route et contrôleur de la page de contact
-    // public function contact(): Response
-    // {
-    // }
+
+    #[Route(
+        path: 'contact', // L'URL auquel répondra cette action sera donc /
+        name: 'app_default_contact',
+    )]
+     public function contact(): Response
+     {
+        $now = new \DateTime("now");
+
+        return $this->render('default/contact.html.twig', [
+            "dateActuelle" => $now,
+        ]);
+     }
 }
