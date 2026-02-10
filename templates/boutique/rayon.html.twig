@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h3>
+{#    Rayon#}
+
+    {% trans %} boutique.rayon.mot_rayon {% endtrans %}
+
+    "{{ categorie.libelle }}" :{{ produits | length }}
+
+     {% trans %} boutique.rayon.mot_produits {% endtrans %}
+
+{#    produit(s)#}
+
+</h3>
+<!-- … -->
+{% for produit in produits %}
+<div class="col-md-4">
+<div class="card clickable« onclick="location = '{# … #}' »>
+<img src="{{ asset(produit.visuel) }} " class="card-img-produit"
+alt="{{ produit.libelle }}">
+<div class="card-body">
+<h4 class="card-title">{{ produit.libelle }}</h4>
+<p class="card-text"><i>{{ produit.texte }}</i></p>
+<h2>
+<span class="badge badge-primary">
+<i class="fas fa-cart-plus"></i> {{ produit.prix }} €
+</span>
+</h2>
+</div>
+</div>
+</div>
+{% endfor %}
+
+{% endblock %}

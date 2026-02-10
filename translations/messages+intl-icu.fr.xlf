@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="9kmIvk2" resname="boutique.index.mot_boutique">
+        <source>boutique.index.mot_boutique</source>
+        <target>__boutique.index.mot_boutique</target>
+      </trans-unit>
+      <trans-unit id="_AcwoR2" resname="default.index.accueil">
+        <source>default.index.accueil</source>
+        <target>__default.index.accueil</target>
+      </trans-unit>
+      <trans-unit id="txgvtKx" resname="default.index.boutique">
+        <source>default.index.boutique</source>
+        <target>__default.index.boutique</target>
+      </trans-unit>
+      <trans-unit id="r_L7GKl" resname="default.index.phrase">
+        <source>default.index.phrase</source>
+        <target>__default.index.phrase</target>
+      </trans-unit>
+      <trans-unit id="16dc2em" resname="default.contact.mot_contact">
+        <source>default.contact.mot_contact</source>
+        <target>__default.contact.mot_contact</target>
+      </trans-unit>
+      <trans-unit id="U9Rc9KN" resname="default.contact.phrase">
+        <source>default.contact.phrase</source>
+        <target>__default.contact.phrase</target>
+      </trans-unit>
+      <trans-unit id="3xxLv6i" resname="boutique.rayon.mot_rayon">
+        <source>boutique.rayon.mot_rayon</source>
+        <target>__boutique.rayon.mot_rayon</target>
+      </trans-unit>
+      <trans-unit id="6wj3U4x" resname="boutique.rayon.mot_produits">
+        <source>boutique.rayon.mot_produits</source>
+        <target>__boutique.rayon.mot_produits</target>
+      </trans-unit>
+      <trans-unit id="UO8pM07" resname="boutique.index.mot_rayon">
+        <source>boutique.index.mot_rayon</source>
+        <target>__boutique.index.mot_rayon</target>
+      </trans-unit>
+      <trans-unit id="5BPcmKt" resname="default.navbar.menu1">
+        <source>default.navbar.menu1</source>
+        <target>__default.navbar.menu1</target>
+      </trans-unit>
+      <trans-unit id="y9u54ui" resname="default.navbar.menu2">
+        <source>default.navbar.menu2</source>
+        <target>__default.navbar.menu2</target>
+      </trans-unit>
+      <trans-unit id="mbi0uki" resname="default.navbar.menu3">
+        <source>default.navbar.menu3</source>
+        <target>__default.navbar.menu3</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

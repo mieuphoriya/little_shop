@@ -3,18 +3,36 @@
 {% block title %}Hello BoutiqueController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="card col-md-12">
+    <div class="card-header">
+        <h3> <i class="fas fa-store"></i>
+{#            Boutique :#}
+            {% trans %} boutique.index.mot_boutique {% endtrans %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            {{ categories | length }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/users/info/pub/2a/R4.01/TP/patratim/src/Controller/BoutiqueController.php</code></li>
-        <li>Your template at <code>/users/info/pub/2a/R4.01/TP/patratim/templates/boutique/index.html.twig</code></li>
-    </ul>
+            {% trans %} boutique.index.mot_rayon {% endtrans %}
+
+{#            Rayon(s)#}
+        </h3>
+    </div>
+    <div class="card-body row">
+        {% for categorie in categories %}
+            <div class="col-md-3">
+                <div class="card clickable"
+                     onclick="location = '{{ path('app_boutique_rayon', {'idCategorie': categorie.id}) }}'">
+                    <img src="{{ asset(categorie.visuel) }}"
+                         class="card-img-top" alt="{{ categorie.libelle }}">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ categorie.libelle }}</h4>
+                        <p class="card-text">
+                            <i>{{ categorie.texte}}</i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
+
 {% endblock %}
