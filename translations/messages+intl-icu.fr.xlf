@@ -47,12 +47,46 @@
       </trans-unit>
       <trans-unit id="y9u54ui" resname="default.navbar.menu2">
         <source>default.navbar.menu2</source>
-        <target>__default.navbar.menu2</target>
+        <target>Boutique</target>
       </trans-unit>
       <trans-unit id="mbi0uki" resname="default.navbar.menu3">
         <source>default.navbar.menu3</source>
-        <target>__default.navbar.menu3</target>
+        <target>Contact</target>
       </trans-unit>
+
+      <trans-unit id="mbiuki1" resname="default.navbar.menu4">
+          <source>default.navbar.menu4</source>
+          <target>Produits</target>
+      </trans-unit>
+      <trans-unit id="mbiuki2" resname="default.navbar.menu5">
+          <source>default.navbar.menu5</source>
+          <target>Usager</target>
+      </trans-unit>
+      <trans-unit id="mbiuki3" resname="default.navbar.menu6">
+          <source>default.navbar.menu6</source>
+          <target>Connexion</target>
+      </trans-unit>
+      <trans-unit id="mbiuki5" resname="default.navbar.menu7">
+          <source>default.navbar.menu7</source>
+          <target>Inscription</target>
+      </trans-unit>
+      <trans-unit id="mbiuki6" resname="default.navbar.menu8">
+          <source>default.navbar.menu8</source>
+          <target>Mon Compte</target>
+      </trans-unit>
+      <trans-unit id="mbiuki7" resname="default.navbar.menu9">
+          <source>default.navbar.menu9</source>
+          <target>Mes Commandes</target>
+      </trans-unit>
+      <trans-unit id="mbiuki8" resname="default.navbar.menu10">
+          <source>default.navbar.menu10</source>
+          <target>Déconnexion</target>
+      </trans-unit>
+      <trans-unit id="mbiuki9" resname="default.navbar.menu11">
+          <source>default.navbar.menu11</source>
+          <target>chercher produit(s)...</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

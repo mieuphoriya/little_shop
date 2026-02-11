@@ -26,28 +26,28 @@ a:hover {
 }
 
 .card-img {
-    height: 300px; 
-    width: auto; 
-    display: block; 
+    height: 300px;
+    width: auto;
+    display: block;
     margin-top: 10px;
-    margin-left: auto; 
+    margin-left: auto;
     margin-right: auto;
 }
 
 .card-img-produit {
-    height: 150px; 
-    width: auto; 
-    display: block; 
+    height: 150px;
+    width: auto;
+    display: block;
     margin-top: 10px;
-    margin-left: auto; 
+    margin-left: auto;
     margin-right: auto;
 }
 
 .cart-img-produit {
-    height: 40px; 
-    width: auto; 
-    display: block; 
-    margin-left: auto; 
+    height: 40px;
+    width: auto;
+    display: block;
+    margin-left: auto;
     margin-right: auto;
 }
 

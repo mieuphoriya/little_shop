@@ -2,7 +2,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 	<a class="navbar-brand" href="{{ path("app_default_index") }}">
 		<i class="fas fa-home"></i>
-{#		Accueil Boutique#}
         {% trans %} default.navbar.menu1{% endtrans %}
 	</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,29 +10,111 @@
 	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="{# TODO #}">
+				<a class="nav-link" href="{{ path("app_boutique_index") }}">
 					<i class="fas fa-store"></i>
-{#					Boutique#}
                     {% trans %} default.navbar.menu2{% endtrans %}
 				</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path("app_default_contact") }}">
 					<i class="fas fa-comments"></i>
-{#					Contact#}
                     {% trans %} default.navbar.menu3{% endtrans %}
 				</a>
 			</li>
-			{# TODO : ajouter au fil des TPs les autres éléments du menu #}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge badge-pill badge-danger">0</span>
+                        {% trans %} default.navbar.menu4 {% endtrans %}</a>
+                </li>
+                <li class="nav-item dropdown">
+					<span class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-user"></i>
+                        {% trans %} default.navbar.menu5{% endtrans %}
+                    </span>
+                    <div class="dropdown-menu" aria-labelledby="dropdown02" style="min-width: 5rem;">
+                        <a class="dropdown-item " href="">
+                            {% trans %} default.navbar.menu6{% endtrans %}
+                        </a>
+                        <a class="dropdown-item " href="">
+                            {% trans %} default.navbar.menu7{% endtrans %}
+                        </a>
+                        <a class="dropdown-item disabled" href="">
+                            {% trans %} default.navbar.menu8{% endtrans %}
+                        </a>
+                        <a class="dropdown-item disabled" href="">
+                            {% trans %} default.navbar.menu9{% endtrans %}
+                        </a>
+                        <a class="dropdown-item disabled" href="">
+                            {% trans %} default.navbar.menu10{% endtrans %}
+                        </a>
+                    </div>
+                </li>
+
 		</ul>
-		<!-- Début champ de recherche -->
-		{# TODO #}
-		<!-- Fin champ de recherche -->
-		<!-- Début menu des monnaies -->
-		{# TODO #}
-		<!-- Fin menu des monnaies -->
-		<!-- Début menu des langues -->
-		{# TODO #}
-		<!-- Fin Menu des langues -->
+        <!-- Début champ de recherche -->
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" id="searchString" type="text" placeholder="{% trans %} default.navbar.menu11{% endtrans %}" aria-label="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" id="searchButton">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+        <!-- Fin champ de recherche -->
+        <!-- Début menu des monnaies -->
+        <ul class="navbar-nav my-0">
+            <li class="nav-item dropdown">
+				<span class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					EUR
+				</span>
+                <div class="dropdown-menu" aria-labelledby="dropdown02" style="min-width: 5rem;">
+                    <a class="dropdown-item" href="">
+                        GBP
+                    </a>
+                    <a class="dropdown-item" href="">
+                        USD
+                    </a>
+                    <a class="dropdown-item" href="/">
+                        CAD
+                    </a>
+                    <a class="dropdown-item" href="/">
+                        XOF
+                    </a>
+                    <a class="dropdown-item" href="/">
+                        PHP
+                    </a>
+                    <a class="dropdown-item" href="/">
+                        IDR
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <!-- Fin menu des monnaies -->
+        <!-- Début menu des langues -->
+        <ul class="navbar-nav my-0">
+            <li class="nav-item dropdown">
+				<span class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% set locale = app.request.attributes.get('_locale') %}
+                    <img src="{{ asset('images/locale/' ~ locale ~ '.svg') }}" alt="{{ locale }}">
+				</span>
+                <div class="dropdown-menu" aria-labelledby="dropdown01" style="min-width: 5rem;">
+
+{% set route = app.request.attributes.get('_route') %}
+{% set params = app.request.attributes.get('_route_params') %}
+
+{% for uneLocale in supported_locales | split('|') %}
+
+ {%  if uneLocale!= locale %}
+
+    <a class="dropdown-item" href="{{ path(route, params | merge({'_locale': uneLocale })) }}">
+        <img src="{{ asset('images/locale/' ~ uneLocale ~ '.svg') }}"  alt="{{ locale }}">
+    </a>
+{% endif %}
+{% endfor %}
+                </div>
+            </li>
+        </ul>
+        <!-- Fin Menu des langues -->
 	</div>
 </nav>
+
