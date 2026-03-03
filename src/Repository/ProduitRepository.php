@@ -15,6 +15,8 @@ class ProduitRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Produit::class);
     }
+//on acess aux methedes de base findby id find all
+//si on a besoin de methedes particuliers on le code un select particulier
 
     //    /**
     //     * @return Produit[] Returns an array of Produit objects
@@ -31,13 +33,14 @@ class ProduitRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Produit
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        public function findProduits(string $libelle): array
+        {
+            $entityManager = $this->getEntityManager();
+            $query = $entityManager->createQuery(
+                    'SELECT p
+                    FROM App\Entity\Produit p
+                    WHERE p.libelle LIKE :libelle')->setParameter('libelle', '%' . $libelle . '%') ;
+
+        return $query->getResult();
+                }
 }

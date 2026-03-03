@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\CategorieRepository;
+use App\Repository\ProduitRepository;
 use App\Service\BoutiqueService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,14 +25,12 @@ final class BoutiqueController extends AbstractController
         path: '/',
         name: 'app_boutique_index'
     )]
-    public function index(BoutiqueService $boutiqueService, TranslatorInterface $translator): Response
+    public function index(CategorieRepository $categorieRepository): Response
     {
         return $this->render(
             'boutique/index.html.twig',
-            ['categories' => $boutiqueService->findAllCategories()]
+            ['categories' => $categorieRepository->findAll()]
         );
-
-        $traduction = $translator->trans('boutique.index.mot_boutique', 'boutique.index.mot_rayon');
 
     }
 
@@ -39,9 +39,9 @@ final class BoutiqueController extends AbstractController
         name: 'app_boutique_rayon',
         requirements: ['idCategorie' => '\d+']
     )]
-    public function rayon(BoutiqueService $boutiqueService, int $idCategorie): Response
+    public function rayon(CategorieRepository $categorieRepository, int $idCategorie): Response
     {
-        $categorie = $boutiqueService->findCategorieById($idCategorie);
+        $categorie = $categorieRepository->find($idCategorie);
         if (!$categorie) {
             throw $this->createNotFoundException("Le rayon numéro '$idCategorie' n'existe pas");
         }
@@ -49,11 +49,10 @@ final class BoutiqueController extends AbstractController
             'boutique/rayon.html.twig',
             [
                 'categorie' => $categorie,
-                'produits' => $boutiqueService->findProduitsByCategorie($idCategorie)
+                'produits' => $categorie->getProduits()
             ]
         );
     }
-
 
     #[Route(
         path: '/chercher/{recherche}',
@@ -61,14 +60,14 @@ final class BoutiqueController extends AbstractController
         requirements: ['recherche' => '.+'], // regexp pour avoir tous les car, / compris
         defaults: ['recherche' => '']
     )]
-    public function chercher(BoutiqueService $boutique, string $recherche): Response
+    public function chercher(ProduitRepository $produitRepository , string $recherche): Response
     {
 
         return $this->render(
             'boutique/chercher.html.twig',
             [
                 'searchedProduct' => $recherche,
-                'findedProducts' => $boutique->findProduitsByLibelleOrTexte($recherche)
+                'findedProducts' => $produitRepository->findProduits($recherche)
             ]
         );
 
