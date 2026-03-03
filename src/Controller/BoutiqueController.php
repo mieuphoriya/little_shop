@@ -14,7 +14,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
     requirements: ['_locale' => '%app.supported_locales%'],
     defaults: ['_locale' => 'fr']
 )]
-
 //#[Route(
 //    path: '/boutique',
 //)]
@@ -34,6 +33,7 @@ final class BoutiqueController extends AbstractController
         $traduction = $translator->trans('boutique.index.mot_boutique', 'boutique.index.mot_rayon');
 
     }
+
     #[Route(
         path: '/rayon/{idCategorie}',
         name: 'app_boutique_rayon',
@@ -41,7 +41,7 @@ final class BoutiqueController extends AbstractController
     )]
     public function rayon(BoutiqueService $boutiqueService, int $idCategorie): Response
     {
-        $categorie=$boutiqueService->findCategorieById($idCategorie);
+        $categorie = $boutiqueService->findCategorieById($idCategorie);
         if (!$categorie) {
             throw $this->createNotFoundException("Le rayon numéro '$idCategorie' n'existe pas");
         }
@@ -55,4 +55,22 @@ final class BoutiqueController extends AbstractController
     }
 
 
+    #[Route(
+        path: '/chercher/{recherche}',
+        name: 'app_boutique_chercher',
+        requirements: ['recherche' => '.+'], // regexp pour avoir tous les car, / compris
+        defaults: ['recherche' => '']
+    )]
+    public function chercher(BoutiqueService $boutique, string $recherche): Response
+    {
+
+        return $this->render(
+            'boutique/chercher.html.twig',
+            [
+                'searchedProduct' => $recherche,
+                'findedProducts' => $boutique->findProduitsByLibelleOrTexte($recherche)
+            ]
+        );
+
+    }
 }

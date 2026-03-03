@@ -53,7 +53,19 @@
             // Coder ici la fonction appelée lors de la recherche d'un produit
             function onSearchClick(searchString) {
             }
-		</script>
+
+            // Activation tooltip bootstrap sur la page
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Script du bouton de recherche
+            $("#searchButton").click(function () {
+                var searchString = $('#searchString').val().trim();
+                window.location.href = ('{{ path('app_boutique_chercher') }}' + '/' + encodeURIComponent(searchString));
+
+                return false;
+            });
+
+        </script>
 		<!-- debut du block js spécifique -->
 		{% block js %}{%  endblock %}
 		<!-- fin du block js spécifique -->
