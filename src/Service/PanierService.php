@@ -23,7 +23,8 @@ class PanierService
         $this->boutique = $boutique;
         $this->session = $requestStack->getSession();
         // Récupération du panier en session s'il existe, init. à vide sinon
-       //$this->panier = /* A COMPLETER */;
+        // un panier est un tableau associatif idProduit => quantite
+        $this->panier = $this->session->get(self::PANIER_SESSION, []); /* A COMPLETER */;
     }
 
     // Renvoie le montant total du panier
@@ -42,6 +43,19 @@ class PanierService
     public function ajouterProduit(int $idProduit, int $quantite = 1) : void
     {
       /* A COMPLETER */
+        // 1 Est ce qu'un produit existe dans le panier ?
+        // si oui +quantite
+        // si non tu créés produit et la quantite dans le panier
+        // 2 maj de la session
+
+        if (isset($this->panier[$idProduit]) ) {
+        $this->panier[$idProduit]+= $quantite;
+        } else {
+            $this->panier[$idProduit] = $quantite;
+        }
+
+        $this->session->set(self::PANIER_SESSION, $this->panier);
+
     }
 
     // Enlever du panier le produit $idProduit en quantite $quantite
