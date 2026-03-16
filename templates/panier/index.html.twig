@@ -1,20 +1,151 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PanierController!{% endblock %}
+{% block title %}Panier{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="col-md-10">
+        <div class="main-div">
+            <div class="card col-md-12">
+                <div class="card-header">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/users/info/pub/2a/R4.01/TP/patratim/src/Controller/PanierController.php</code></li>
-        <li>Your template at <code>/users/info/pub/2a/R4.01/TP/patratim/templates/panier/index.html.twig</code></li>
-    </ul>
-</div>
+                    <a class="btn-back text-secondary" href="{{ path('app_boutique_index') }}">
+                        <i class="fas fa-2x fa-arrow-circle-left"></i>
+                    </a>
+
+                    <h3>
+                        <i class="fas fa-shopping-cart"></i>
+
+                        <span class="badge badge-pill badge-danger">  {{ render(controller('App\\Controller\\PanierController::nombreProduits')) }} </span>
+                                                    produit(s) - montant :
+                                                    <b>   {{ total|number_format(2, ',', ' ') }} € </b>
+
+                    </h3>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    {% if panier is empty %}
+
+                        <h5>
+                            <i>
+                                Ton panier est vide !<br>
+                                Voudrais-tu briser notre petit cœur fragile de commerçant ?<br><br>
+                            </i>
+
+                            <a href="{{ path('app_boutique_index') }}">
+                                <i class="fas fa-2x fa-heart-broken text-danger text-blink"></i>
+                            </a>
+
+                        </h5>
+
+                    {% else %}
+
+                        <div class="row">
+
+                            <table class="table table-striped table-sm table-hover">
+
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Produit</th>
+                                    <th class="text-right">Prix</th>
+                                    <th>Quantité</th>
+                                    <th class="text-right">Total</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+
+                                {% for element in panier %}
+
+                                    {% set produit = element.produit %}
+                                    {% set quantite = element.quantite %}
+                                    {% set totalProduit = produit.prix * quantite %}
+
+                                    <tr>
+                                        <td>
+                                            <img src="{{ asset(produit.visuel) }}"
+                                                 class="cart-img-produit"
+                                                 alt="{{ produit.libelle }}">
+                                        </td>
+
+                                        <td>
+                                            <b>{{ produit.libelle }}</b>
+                                            <p><i>{{ produit.texte }}</i></p>
+                                        </td>
+
+                                        <td class="text-right">
+                                            {{ produit.prix }} €
+                                        </td>
+
+                                        <td>
+
+                                            <a href="{{ path('app_panier_enlever', {idProduit: produit.id, quantite: 1}) }}">
+                                                <i class="fas fa-minus-square text-muted"></i>
+                                            </a>
+
+                                            {{ quantite }}
+
+                                            <a href="{{ path('app_panier_ajouter', {idProduit: produit.id, quantite: 1}) }}">
+                                                <i class="fas fa-plus-square text-muted"></i>
+                                            </a>
+
+                                        </td>
+
+                                        <td class="text-right">
+                                            {{ totalProduit|number_format(2, ',', ' ') }} €
+                                        </td>
+
+                                        <td>
+                                            <a href="{{ path('app_panier_supprimer', {idProduit: produit.id}) }}">
+                                                <i class="fas fa-trash text-muted"></i>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+
+                                <tfoot>
+
+                                <tr>
+
+                                    <th class="text-right" colspan="4">
+                                        Total
+                                    </th>
+
+                                    <th class="text-right">
+                                        {{ total|number_format(2, ',', ' ') }} €
+                                    </th>
+
+                                    <th>
+
+                                        <a href="{{ path('app_panier_vider') }}">
+                                            <i class="fas fa-trash text-muted"></i>
+                                        </a>
+
+                                    </th>
+
+                                </tr>
+
+                                </tfoot>
+
+                            </table>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

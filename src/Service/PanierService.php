@@ -1,8 +1,8 @@
 <?php
 namespace App\Service;
 
+use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
-use App\Service\BoutiqueService;
 
 // Service pour manipuler le panier et le stocker en session
 class PanierService
@@ -11,45 +11,44 @@ class PanierService
     /// patratim@iut2-dg033-d09:/users/info/pub/2a/R4.01/TP/patratim$ php bin/console make:controller PanierController
     /// //pour creer un controller
     private $session;   // Le service session
-    private $boutique;  // Le service boutique
     private $panier;    // Tableau associatif, la clé est un idProduit, la valeur associée est une quantité
-                        //   donc $this->panier[$idProduit] = quantité du produit dont l'id = $idProduit
+    //   donc $this->panier[$idProduit] = quantité du produit dont l'id = $idProduit
     const PANIER_SESSION = 'panier'; // Le nom de la variable de session pour faire persister $this->panier
+    public function __construct(RequestStack $requestStack,  ProduitRepository $produitRepository) {
 
-    // Constructeur du service
-    public function __construct(RequestStack $requestStack, BoutiqueService $boutique)
-    {
-        // Récupération des services session et BoutiqueService
-        $this->boutique = $boutique;
         $this->session = $requestStack->getSession();
-        // Récupération du panier en session s'il existe, init. à vide sinon
-        // un panier est un tableau associatif idProduit => quantite
-        $this->panier = $this->session->get(self::PANIER_SESSION, []); /* A COMPLETER */;
+        $this->produitRepository = $produitRepository;
+        // récupération du panier en session
+        $this->panier = $this->session->get(self::PANIER_SESSION, []);
     }
-
     // Renvoie le montant total du panier
-    public function getTotal() : float
-    {
-      /* A COMPLETER */
+    public function getTotal() : float {
+        $total = 0;
+        foreach ($this->panier as $idProduit => $quantite){
+
+            $produit = $this->produitRepository->find($idProduit);
+            if ($produit) {
+                $total +=$produit->getPrix() * $quantite;
+            }
+        }
+        return $total;
     }
 
     // Renvoie le nombre de produits dans le panier
-    public function getNombreProduits() : int
-    {
-      /* A COMPLETER */
+    public function getNombreProduits() : int {
+        return array_sum($this->panier);
     }
 
     // Ajouter au panier le produit $idProduit en quantite $quantite
-    public function ajouterProduit(int $idProduit, int $quantite = 1) : void
-    {
-      /* A COMPLETER */
+    public function ajouterProduit(int $idProduit, int $quantite = 1) : void {
+        /* A COMPLETER */
         // 1 Est ce qu'un produit existe dans le panier ?
         // si oui +quantite
         // si non tu créés produit et la quantite dans le panier
         // 2 maj de la session
 
         if (isset($this->panier[$idProduit]) ) {
-        $this->panier[$idProduit]+= $quantite;
+            $this->panier[$idProduit]+= $quantite;
         } else {
             $this->panier[$idProduit] = $quantite;
         }
@@ -59,28 +58,37 @@ class PanierService
     }
 
     // Enlever du panier le produit $idProduit en quantite $quantite
-    public function enleverProduit(int $idProduit, int $quantite = 1) : void
-    {
-      /* A COMPLETER */
+    public function enleverProduit(int $idProduit, int $quantite = 1) : void {
+        if (!isset($this->panier[$idProduit])) {
+            return;
+        }
+
+        $this->panier[$idProduit] -= $quantite;
+
+        if ($this->panier[$idProduit] <= 0) {
+            unset($this->panier[$idProduit]);
+        }
+
+        $this->session->set(self::PANIER_SESSION, $this->panier);
     }
 
     // Supprimer le produit $idProduit du panier
-    public function supprimerProduit(int $idProduit) : void
-    {
-      /* A COMPLETER */
+    public function supprimerProduit(int $idProduit) : void {
+        if (isset($this->panier[$idProduit])) {
+            unset($this->panier[$idProduit]);
+            $this->session->set(self::PANIER_SESSION, $this->panier);
+        }
     }
 
     // Vider complètement le panier
-    public function vider() : void
-    {
-      /* A COMPLETER */
+    public function vider() : void {
+        $this->panier = [];
+        $this->session->set(self::PANIER_SESSION, $this->panier);
     }
 
     // Renvoie le contenu du panier dans le but de l'afficher
     //   => un tableau d'éléments [ "produit" => un objet produit, "quantite" => sa quantite ]
-    public function getContenu() : array
-    {
-      /* A COMPLETER */
+    public function getContenu() : array {
+        return $this->panier;
     }
-
 }
