@@ -1,6 +1,8 @@
 <?php
 namespace App\Service;
 
+use App\Entity\Commande;
+use App\Entity\Usager;
 use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -90,5 +92,9 @@ class PanierService
     //   => un tableau d'éléments [ "produit" => un objet produit, "quantite" => sa quantite ]
     public function getContenu() : array {
         return $this->panier;
+    }
+
+    public function panierToCommande(Usager $usager) : ?Commande {
+
     }
 }
