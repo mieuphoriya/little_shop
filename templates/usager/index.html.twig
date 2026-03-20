@@ -26,10 +26,10 @@
                 <td>{{ usager.password }}</td>
                 <td>{{ usager.nom }}</td>
                 <td>{{ usager.prenom }}</td>
-                <td>
-                    <a href="{{ path('app_usager_show', {'id': usager.id}) }}">show</a>
-                    <a href="{{ path('app_usager_edit', {'id': usager.id}) }}">edit</a>
-                </td>
+{#                <td>#}
+{#                    <a href="{{ path('app_usager_show', {'id': usager.id}) }}">show</a>#}
+{#                    <a href="{{ path('app_usager_edit', {'id': usager.id}) }}">edit</a>#}
+{#                </td>#}
             </tr>
         {% else %}
             <tr>
@@ -39,5 +39,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_usager_new') }}">Create new</a>
+{#    <a href="{{ path('app_usager_new') }}">Create new</a>#}
 {% endblock %}

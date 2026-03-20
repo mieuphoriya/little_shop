@@ -4,22 +4,28 @@
 
 {% block body %}
     <div class="card col-md-12">
-    <div class="card-header">
-        <h3> <i class="fas fa-store"></i>
+    <div class="card-header row">
+        <a class="btn-back text-secondary " href="{{ path("app_default_index") }}">
+            <i class="fas fa-2x fa-arrow-circle-left"></i>
+        </a>
+        <h3>
+            <i class="fas fa-store"></i>
 {#            Boutique :#}
             {% trans %} boutique.index.mot_boutique {% endtrans %}
 
-            {{ categories | length }}
+            <span class="badge badge-pill badge-info">0{{ categories | length }}</span>
 
-            {% trans %} boutique.index.mot_rayon {% endtrans %}
-
-{#            Rayon(s)#}
+            {% trans %} boutique.index.mot_rayon {% endtrans %}(s)
         </h3>
     </div>
     <div class="card-body row">
         {% for categorie in categories %}
             <div class="col-md-3">
                 <div class="card clickable"
+{#                     lors du click sur l'element div "card clickable"
+                        - redirection sur le Boutique Controller : app_boutique_rayon - fonction rayon()
+                        - idCategorie est le parametre de la fonction rayon()
+#}
                      onclick="location = '{{ path('app_boutique_rayon', {'idCategorie': categorie.id}) }}'">
                     <img src="{{ asset(categorie.visuel) }}"
                          class="card-img-top" alt="{{ categorie.libelle }}">

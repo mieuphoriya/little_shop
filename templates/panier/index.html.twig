@@ -15,12 +15,23 @@
 
                     <h3>
                         <i class="fas fa-shopping-cart"></i>
-
+                        {% if panier is empty %}
                         <span class="badge badge-pill badge-danger">  {{ render(controller('App\\Controller\\PanierController::nombreProduits')) }} </span>
                                                     produit(s) - montant :
                                                     <b>   {{ total|number_format(2, ',', ' ') }} € </b>
+                        {% else %}
+
+                        <span class="badge badge-pill badge-info">  {{ render(controller('App\\Controller\\PanierController::nombreProduits')) }} </span>
+                        produit(s) - montant :
+                        <b>   {{ total|number_format(2, ',', ' ') }} € </b>
+                        {% endif %}
 
                     </h3>
+                    <div class="col-md-6 align-self-center btn-group btn-group" role="group">
+                        <a class="btn btn-primary" href="/info/R401/fr/panier/commander">
+                            Passer la commande
+                        </a>
+                    </div>
 
                 </div>
 

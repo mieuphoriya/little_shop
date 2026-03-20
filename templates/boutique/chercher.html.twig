@@ -18,7 +18,15 @@
     <!-- … -->
     {% for produit in findedProducts %}
         <div class="col-md-4">
-            <div class="card clickable« onclick="location = '{# … #}' »>
+            <div class="card clickable"
+
+                {#                     lors du click sur l'element div "card clickable"
+                        - redirection sur le Panier Controller : app_panier_ajouter - fonction  ajouter()
+                        - idProduit' et  'quantite' sont les parametre de la fonction ajouter()
+                #}
+
+                 onclick="location = '{{ path('app_panier_ajouter', {'idProduit': produit.id, 'quantite': 1 }) }}'">
+
                 <img src="{{ asset(produit.visuel) }} " class="card-img-produit"
                      alt="{{ produit.libelle }}">
                 <div class="card-body">
