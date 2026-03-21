@@ -2,6 +2,7 @@
 namespace App\Service;
 
 use App\Entity\Commande;
+use App\Entity\LigneCommande;
 use App\Entity\Usager;
 use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -12,10 +13,12 @@ class PanierService
     ////////////////////////////////////////////////////////////////////////////
     /// patratim@iut2-dg033-d09:/users/info/pub/2a/R4.01/TP/patratim$ php bin/console make:controller PanierController
     /// //pour creer un controller
-    private $session;   // Le service session
-    private $panier;    // Tableau associatif, la clé est un idProduit, la valeur associée est une quantité
-    //   donc $this->panier[$idProduit] = quantité du produit dont l'id = $idProduit
-    const PANIER_SESSION = 'panier'; // Le nom de la variable de session pour faire persister $this->panier
+    ///
+    const PANIER_SESSION = 'panier';   // Le service session
+    private $session;                   // Tableau associatif, la clé est un idProduit, la valeur associée est une quantité
+                                        //   donc $this->panier[$idProduit] = quantité du produit dont l'id = $idProduit
+    private $panier;                    // Le nom de la variable de session pour faire persister $this->panier
+
     public function __construct(RequestStack $requestStack,  ProduitRepository $produitRepository) {
 
         $this->session = $requestStack->getSession();
@@ -23,6 +26,8 @@ class PanierService
         // récupération du panier en session
         $this->panier = $this->session->get(self::PANIER_SESSION, []);
     }
+
+
     // Renvoie le montant total du panier
     public function getTotal() : float {
         $total = 0;
@@ -36,10 +41,12 @@ class PanierService
         return $total;
     }
 
+
     // Renvoie le nombre de produits dans le panier
     public function getNombreProduits() : int {
         return array_sum($this->panier);
     }
+
 
     // Ajouter au panier le produit $idProduit en quantite $quantite
     public function ajouterProduit(int $idProduit, int $quantite = 1) : void {
@@ -59,6 +66,7 @@ class PanierService
 
     }
 
+
     // Enlever du panier le produit $idProduit en quantite $quantite
     public function enleverProduit(int $idProduit, int $quantite = 1) : void {
         if (!isset($this->panier[$idProduit])) {
@@ -74,6 +82,7 @@ class PanierService
         $this->session->set(self::PANIER_SESSION, $this->panier);
     }
 
+
     // Supprimer le produit $idProduit du panier
     public function supprimerProduit(int $idProduit) : void {
         if (isset($this->panier[$idProduit])) {
@@ -82,11 +91,13 @@ class PanierService
         }
     }
 
+
     // Vider complètement le panier
     public function vider() : void {
         $this->panier = [];
         $this->session->set(self::PANIER_SESSION, $this->panier);
     }
+
 
     // Renvoie le contenu du panier dans le but de l'afficher
     //   => un tableau d'éléments [ "produit" => un objet produit, "quantite" => sa quantite ]
@@ -94,7 +105,24 @@ class PanierService
         return $this->panier;
     }
 
+
     public function panierToCommande(Usager $usager) : ?Commande {
 
+        if($this->panier){
+            $commande = new Commande();
+            $commande->setDateCreation(new \DateTime());
+            $usager->addCommande($commande);
+        }
+
+        foreach ($this->panier as $idProduit => $quantite){
+            $ligneCommande = new LigneCommande();
+            $produit = $this->produitRepository->find($idProduit);
+            $ligneCommande->setProduit($produit);
+            $ligneCommande->setQuantite($quantite);
+            $commande->addLigneCommande($ligneCommande);
+        }
+        $this->panier = [];
+
+        return $commande;
     }
 }

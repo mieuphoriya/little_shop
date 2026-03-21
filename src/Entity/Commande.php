@@ -83,7 +83,7 @@ class Commande
         return $this->ligneCommandes;
     }
 
-    public function addCommande(LigneCommande $ligneCommande): static
+    public function addLigneCommande(LigneCommande $ligneCommande): static
     {
         if (!$this->ligneCommandes->contains($ligneCommande)) {
             $this->ligneCommandes->add($ligneCommande);
@@ -93,7 +93,7 @@ class Commande
         return $this;
     }
 
-    public function removeCommande(LigneCommande $ligneCommande): static
+    public function removeLigneCommande(LigneCommande $ligneCommande): static
     {
         if ($this->ligneCommandes->removeElement($ligneCommande)) {
             // set the owning side to null (unless already changed)

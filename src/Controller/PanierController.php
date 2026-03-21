@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Usager;
 use App\Service\PanierService;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -76,6 +77,31 @@ final class PanierController extends AbstractController
 
     public function nombreProduits(PanierService $panier): Response {
         return new Response((string) $panier->getNombreProduits());
+    }
+
+//
+//Créer une route app_panier_commander et une méthode commander dans le contrôleur PanierController :
+
+//o Cette action devra bien sûr utiliser la méthode panierToCommande créée précédemment
+//o Elle utilisera (temporairement) l’usager d’identifiant égal à 1 comme propriétaire de la commande.
+
+//Au TP suivant, c’est l’usager authentifié qui sera bien sûr choisi comme propriétaire de la commande !
+//o Elle se terminera par l’affichage d’un template commande.html.twig qui indiquera à l’utilisateur son
+//prénom, son nom, le numéro et la date de la commande qu’il vient de passer
+
+    #[Route('/commander', name: 'app_panier_commander')]
+    public function commander(PanierService $panierService): Response {
+
+        $usager = new Usager();
+
+        $panierService->panierToCommande($usager);
+
+        return $this->render('panier/commande.html.twig', [
+            'prenom' => $usager->getPrenom(),
+            'nom' => $usager->getNom(),
+            'numCommande' => $usager->getCommandes()->first()->getId(),
+            'dateCommande' => $usager->getCommandes()->first()->getDateCommande()
+        ]);
     }
 
 }
