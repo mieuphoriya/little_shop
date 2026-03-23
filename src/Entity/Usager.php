@@ -52,7 +52,7 @@ class Usager implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Commande>
      */
-    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'commande', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'usager', orphanRemoval: true)]
     private Collection $commandes;
 
     public function __construct()

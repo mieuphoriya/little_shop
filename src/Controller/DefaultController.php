@@ -11,7 +11,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 # On peut définir ici un préfixe pour les URL de toutes les routes des actions de la classe DefaultController
 
 #[Route(
-    path: '/{_locale}/',
+    path: '/{_locale}',
     requirements: ['_locale' => '%app.supported_locales%'],
     defaults: ['_locale' => 'fr']
 )]
@@ -37,7 +37,7 @@ class DefaultController extends AbstractController
     }
 
     #[Route(
-        path: 'test', // L'URL auquel répondra cette action sera donc /test
+        path: '/test', // L'URL auquel répondra cette action sera donc /test
         name: 'app_default_test',
     )]
     public function test(): Response
@@ -50,7 +50,7 @@ class DefaultController extends AbstractController
     // TODO : route et contrôleur de la page de contact
 
     #[Route(
-        path: 'contact', // L'URL auquel répondra cette action sera donc /
+        path: '/contact', // L'URL auquel répondra cette action sera donc /
         name: 'app_default_contact',
     )]
      public function contact(): Response

@@ -43,25 +43,54 @@
                 <li class="nav-item dropdown">
 					<span class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="fas fa-user"></i>
-                        {% trans %} default.navbar.menu5{% endtrans %}
+                        {% if app.user %}
+                           {{ app.user.prenom }}
+                            {%  else %}
+                            {% trans %} default.navbar.menu5{% endtrans %}
+                        {% endif %}
                     </span>
+
+                    {% if app.user %}
+
+                        <div class="dropdown-menu" aria-labelledby="dropdown02" style="min-width: 5rem;">
+                            <a class="dropdown-item disabled" href="{{ path('app_login') }}">
+                                {% trans %} default.navbar.menu6{% endtrans %}
+                            </a>
+                            <a class="dropdown-item disabled" href="{{ path('app_usager_new') }}">
+                                {% trans %} default.navbar.menu7{% endtrans %}
+                            </a>
+                            <a class="dropdown-item" href="{{ path('app_usager_index') }}">
+                                {% trans %} default.navbar.menu8{% endtrans %}
+                            </a>
+                            <a class="dropdown-item" href="{{ path("app_usager_commandes") }}">
+                                {% trans %} default.navbar.menu9{% endtrans %}
+                            </a>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                {% trans %} default.navbar.menu10{% endtrans %}
+                            </a>
+                        </div>
+
+                            {%  else %}
+
                     <div class="dropdown-menu" aria-labelledby="dropdown02" style="min-width: 5rem;">
-                        <a class="dropdown-item " href="{{ path('app_usager_index') }}">
+                        <a class="dropdown-item " href="{{ path('app_login') }}">
                             {% trans %} default.navbar.menu6{% endtrans %}
                         </a>
                         <a class="dropdown-item " href="{{ path('app_usager_new') }}">
                             {% trans %} default.navbar.menu7{% endtrans %}
                         </a>
-                        <a class="dropdown-item disabled" href="">
+                        <a class="dropdown-item disabled" href="{{ path('app_usager_index') }}">
                             {% trans %} default.navbar.menu8{% endtrans %}
                         </a>
-                        <a class="dropdown-item disabled" href="">
+                        <a class="dropdown-item disabled" href="{{ path("app_usager_commandes") }}">
                             {% trans %} default.navbar.menu9{% endtrans %}
                         </a>
-                        <a class="dropdown-item disabled" href="">
+                        <a class="dropdown-item disabled" href="{{ path('app_logout') }}">
                             {% trans %} default.navbar.menu10{% endtrans %}
                         </a>
                     </div>
+
+                    {% endif %}
                 </li>
 
 		</ul>

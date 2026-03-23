@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Usager;
 use App\Service\PanierService;
 use App\Repository\ProduitRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -89,18 +90,30 @@ final class PanierController extends AbstractController
 //o Elle se terminera par l’affichage d’un template commande.html.twig qui indiquera à l’utilisateur son
 //prénom, son nom, le numéro et la date de la commande qu’il vient de passer
 
+
+//            'prenom' => $usager->getPrenom(),
+//            'nom' => $usager->getNom(),
+//            'numCommande' => $usager->getCommandes()->first()->getId(),
+//            'dateCommande' => $usager->getCommandes()->first()->getDateCommande()
+
     #[Route('/commander', name: 'app_panier_commander')]
-    public function commander(PanierService $panierService): Response {
+    public function commander(PanierService $panierService, EntityManagerInterface $entityManager): Response {
 
-        $usager = new Usager();
+        $usager = $this->getUser();
 
-        $panierService->panierToCommande($usager);
+        if (!$usager) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $commande = $panierService->panierToCommande($usager);
+        $entityManager->persist($commande);
+        $entityManager->flush();
 
         return $this->render('panier/commande.html.twig', [
             'prenom' => $usager->getPrenom(),
             'nom' => $usager->getNom(),
-            'numCommande' => $usager->getCommandes()->first()->getId(),
-            'dateCommande' => $usager->getCommandes()->first()->getDateCommande()
+            'numCommande' => $commande->getId(),
+            'dateCommande' => $commande->getDateCreation()
         ]);
     }
 

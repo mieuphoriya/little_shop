@@ -91,7 +91,6 @@ class PanierService
         }
     }
 
-
     // Vider complètement le panier
     public function vider() : void {
         $this->panier = [];
@@ -119,10 +118,10 @@ class PanierService
             $produit = $this->produitRepository->find($idProduit);
             $ligneCommande->setProduit($produit);
             $ligneCommande->setQuantite($quantite);
+            $ligneCommande->setPrix($produit->getPrix() * $quantite);
             $commande->addLigneCommande($ligneCommande);
         }
-        $this->panier = [];
-
+        $this->vider();
         return $commande;
     }
 }

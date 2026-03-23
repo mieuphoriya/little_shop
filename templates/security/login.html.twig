@@ -18,7 +18,7 @@
     {% endif %}
 
     <div class="card-header">
-        <a class="btn-back text-secondary" href="/info/R401/">
+        <a class="btn-back text-secondary" href="{{ path("app_default_index") }}">
             <i class="fas fa-2x fa-arrow-circle-left"></i>
         </a>
         <h3>
@@ -46,7 +46,7 @@
         <div class="col-md-12 text-right">
             <p>
                 Nouveau client ?
-                <a class="btn btn-sm btn-secondary" type="submit" href="path{{ ("app_usager_new") }}">
+                <a class="btn btn-sm btn-secondary" type="submit" href="{{ path("app_usager_new") }}">
                     Inscription
                 </a>
             </p>
