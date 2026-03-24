@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Repository\CategorieRepository;
 use App\Repository\ProduitRepository;
-use App\Service\BoutiqueService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,9 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
     requirements: ['_locale' => '%app.supported_locales%'],
     defaults: ['_locale' => 'fr']
 )]
-//#[Route(
-//    path: '/boutique',
-//)]
+
 final class BoutiqueController extends AbstractController
 {
     #[Route(

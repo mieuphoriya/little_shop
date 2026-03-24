@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\LigneCommande;
 use App\Entity\Usager;
+use App\Repository\LigneCommandeRepository;
 use App\Service\PanierService;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -80,22 +82,6 @@ final class PanierController extends AbstractController
         return new Response((string) $panier->getNombreProduits());
     }
 
-//
-//Créer une route app_panier_commander et une méthode commander dans le contrôleur PanierController :
-
-//o Cette action devra bien sûr utiliser la méthode panierToCommande créée précédemment
-//o Elle utilisera (temporairement) l’usager d’identifiant égal à 1 comme propriétaire de la commande.
-
-//Au TP suivant, c’est l’usager authentifié qui sera bien sûr choisi comme propriétaire de la commande !
-//o Elle se terminera par l’affichage d’un template commande.html.twig qui indiquera à l’utilisateur son
-//prénom, son nom, le numéro et la date de la commande qu’il vient de passer
-
-
-//            'prenom' => $usager->getPrenom(),
-//            'nom' => $usager->getNom(),
-//            'numCommande' => $usager->getCommandes()->first()->getId(),
-//            'dateCommande' => $usager->getCommandes()->first()->getDateCommande()
-
     #[Route('/commander', name: 'app_panier_commander')]
     public function commander(PanierService $panierService, EntityManagerInterface $entityManager): Response {
 
@@ -115,6 +101,19 @@ final class PanierController extends AbstractController
             'numCommande' => $commande->getId(),
             'dateCommande' => $commande->getDateCreation()
         ]);
+    }
+
+//select produit_id, sum(quantite) from ligne_commande group by produit_id;
+    public function plusVendus( ProduitRepository $produitRepository) : Response {
+
+
+    // Demander au « modèle » les $max articles les plus vendus
+
+//   $articles = $produitRepository->findBestSellers($max);
+   $articles = $produitRepository->findAll();
+
+    return $this->render('panier/plusVendus.html.twig',
+    array('articles' => $articles));
     }
 
 }
