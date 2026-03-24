@@ -44,16 +44,17 @@ class ProduitRepository extends ServiceEntityRepository
         return $query->getResult();
                 }
 
+// select produit_id, sum(quantite) from ligne_commande group by produit_id;
     public function findBestSellers(int $max): array
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT p.id AS produit_id, SUM(cl.quantite) AS total_quantite
+            'SELECT p.id AS produitId, SUM(cl.quantite) AS total
          FROM App\Entity\LigneCommande cl
          JOIN cl.produit p
          GROUP BY p.id
-         ORDER BY total_quantite DESC'
+         ORDER BY total DESC'
         )->setMaxResults($max);
 
         return $query->getResult();

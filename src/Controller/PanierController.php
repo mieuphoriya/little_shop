@@ -103,17 +103,30 @@ final class PanierController extends AbstractController
         ]);
     }
 
-//select produit_id, sum(quantite) from ligne_commande group by produit_id;
-    public function plusVendus( ProduitRepository $produitRepository) : Response {
 
-
-    // Demander au « modèle » les $max articles les plus vendus
+    public function plusVendus(ProduitRepository $produitRepository, $max = 5) : Response {
 
 //   $articles = $produitRepository->findBestSellers($max);
-   $articles = $produitRepository->findAll();
+
+//        $produits = [];
+//        foreach ($produitRepository->findBestSellers($max) as $produitId => $total) {
+//            $produits[$produitRepository->find($produitId)] = $total;
+//        }
+
+        $produits = [];
+
+        foreach ($produitRepository->findBestSellers($max) as $row) {
+            $produit = $produitRepository->find($row['produitId']);
+
+            $produits[] = [
+                'produit' => $produit,
+                'total' => $row['total'],
+            ];
+        }
+
 
     return $this->render('panier/plusVendus.html.twig',
-    array('articles' => $articles));
+    array('articles' => $produits));
     }
 
 }

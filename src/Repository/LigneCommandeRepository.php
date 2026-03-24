@@ -33,6 +33,5 @@ public function __construct(ManagerRegistry $registry)
 
 }
 
-// select produit_id, sum(quantite) from ligne_commande group by produit_id;
 
 
