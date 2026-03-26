@@ -40,7 +40,7 @@
                 {% for ligne in commande.ligneCommandes %}
 
                     {% set produit = ligne.produit %}
-                    {% set total = ligne.prix * ligne.quantite %}
+                    {% set total = ligne.prix %}
 
                     <tr>
                         <td>
@@ -55,7 +55,7 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|currency_convert }}
+                            {{ ((ligne.prix / ligne.quantite) | currency_convert) }}
                         </td>
 
                         <td>
