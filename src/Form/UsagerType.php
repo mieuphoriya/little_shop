@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Usager;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,10 +16,11 @@ class UsagerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('prenom', TextType::class)
-            ->add('nom', TextType::class)
             ->add('email')
             ->add('password')
+            ->add('prenom', TextType::class)
+            ->add('nom', TextType::class)
+            ->add('captcha', CaptchaType::class)
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
         ;
     }

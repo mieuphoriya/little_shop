@@ -86,8 +86,10 @@
                                         </td>
 
                                         <td>
-                                            <b>{{ produit.libelle }}</b>
-                                            <p><i>{{ produit.texte }}</i></p>
+
+                                            <a href="{{ path('app_boutique_rayon', {'idCategorie': produit.categorie.getId()}) }}">
+                                                <b>{{ produit.libelle }}</b>
+                                            </a>
                                         </td>
 
                                         <td class="text-right">
