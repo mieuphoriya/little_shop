@@ -28,20 +28,17 @@ class DeviseService
     {
         $session = $this->requestStack->getSession();
 
-        // если уже есть в session → берём
         if ($session->has('taux')) {
             return $session->get('taux');
         }
 
-        // иначе → идём в API
         $url = 'https://api.exchangeratesapi.io/v1/latest?access_key=' . $this->accessKey . '&format=1';
         $json = file_get_contents($url);
         $data = json_decode($json, true);
 
         $taux = $data['rates'];
-        $base = $data['base']; // например "USD" или "EUR"
+        $base = $data['base'];
 
-        // если база API != EUR → пересчитаем все курсы относительно EUR
         if ($base !== 'EUR') {
             foreach ($taux as $dev => $rate) {
                 $taux[$dev] = $rate / $taux['EUR'];
@@ -49,7 +46,6 @@ class DeviseService
             $taux['EUR'] = 1.0;
         }
 
-        // сохраняем в session
         $session->set('taux', $taux);
 
         return $taux;
@@ -65,11 +61,9 @@ class DeviseService
         }
 
         if (!isset($taux[$devise])) {
-            // если нет курса → возвращаем без изменений
             return $montant;
         }
 
-        // умножаем на курс, т.к. $taux[devise] = сколько единиц валюты за 1 EUR
         return $montant * $taux[$devise];
     }
 }

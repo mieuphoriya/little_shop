@@ -9,7 +9,6 @@
 # config/services.yam
 parameters:
     app.supported_locales: 'fr|en|ru'
-    exchange_api_key: '%env(EXCHANGE_API_KEY)%'
 services:
     # default configuration for services in *this* file
     _defaults:

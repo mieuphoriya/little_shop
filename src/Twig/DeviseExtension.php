@@ -26,8 +26,6 @@ class DeviseExtension extends AbstractExtension
     {
         $montantConverti = $this->deviseService->convert($montant);
         $devise = $this->deviseService->getDevise();
-
-        // форматирование: 2 знака после запятой, запятая как разделитель, пробел как разделитель тысяч
         return number_format($montantConverti, 2, ',', ' ') . ' ' . $devise;
     }
 }
