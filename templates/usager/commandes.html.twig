@@ -55,8 +55,8 @@
                     </td>
                     <td> {{ commande.dateCreation|date('d/m/Y \\à H:i') }}</td>
                     <td class="text-right">
-                        {{ commande.getTotal()|number_format(2, ',', ' ') }}
-                        &nbsp;€
+                        {{ commande.getTotal()|currency_convert }}
+                        &nbsp;
                     </td>
                     <td>
                         <i class="fas fa-hourglass-half text-danger"></i>

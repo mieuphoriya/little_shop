@@ -34,7 +34,7 @@
                     <p class="card-text"><i>{{ produit.texte }}</i></p>
                     <h2>
 <span class="badge badge-primary">
-<i class="fas fa-cart-plus"></i> {{ produit.prix }} €
+<i class="fas fa-cart-plus"></i> {{ produit.prix | currency_convert }}
 </span>
                     </h2>
                 </div>

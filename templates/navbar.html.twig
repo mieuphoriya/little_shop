@@ -106,25 +106,28 @@
         <ul class="navbar-nav my-0">
             <li class="nav-item dropdown">
 				<span class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					EUR
+				{{ app.session.get('devise', 'EUR') }}
 				</span>
                 <div class="dropdown-menu" aria-labelledby="dropdown02" style="min-width: 5rem;">
-                    <a class="dropdown-item" href="">
+                    <a class="dropdown-item" href="{{ path('app_devise_change', {code: 'EUR'}) }}">
+                        EUR
+                    </a>
+                    <a class="dropdown-item" href="{{ path('app_devise_change', {code: 'GBP'}) }}">
                         GBP
                     </a>
-                    <a class="dropdown-item" href="">
+                    <a class="dropdown-item" href="{{ path('app_devise_change', {code: 'USD'}) }}">
                         USD
                     </a>
-                    <a class="dropdown-item" href="/">
+                    <a class="dropdown-item" href="{{ path('app_devise_change', {code: 'CAD'}) }}">
                         CAD
                     </a>
-                    <a class="dropdown-item" href="/">
+                    <a class="dropdown-item" href="{{ path('app_devise_change', {code: 'XOF'}) }}">
                         XOF
                     </a>
-                    <a class="dropdown-item" href="/">
+                    <a class="dropdown-item" href="{{ path('app_devise_change', {code: 'PHP'}) }}">
                         PHP
                     </a>
-                    <a class="dropdown-item" href="/">
+                    <a class="dropdown-item" href="{{ path('app_devise_change', {code: 'IDR'}) }}">
                         IDR
                     </a>
                 </div>

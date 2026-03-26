@@ -20,8 +20,7 @@
 				</span>
                 <br>
                 Montant :
-                {{ commande.getTotal()|number_format(2, ',', ' ') }}
-                &nbsp;€
+                {{ commande.getTotal()|currency_convert }}
             </h3>
         </div>
         <div class="card-body row">
@@ -56,7 +55,7 @@
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.prix|number_format(2, ',', ' ') }} €
+                            {{ ligne.prix|currency_convert }}
                         </td>
 
                         <td>
@@ -64,7 +63,7 @@
                         </td>
 
                         <td class="text-right">
-                            {{ total|number_format(2, ',', ' ') }} €
+                            {{ total | currency_convert }}
                         </td>
                     </tr>
 
@@ -76,8 +75,7 @@
                         Total
                     </th>
                     <th class="text-right">
-                        {{ commande.getTotal()|number_format(2, ',', ' ') }}
-                        &nbsp;€
+                        {{ commande.getTotal()|currency_convert }}
                     </th>
                 </tr>
                 </tfoot>

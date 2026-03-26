@@ -18,12 +18,12 @@
                         {% if panier is empty %}
                         <span class="badge badge-pill badge-danger">  {{ render(controller('App\\Controller\\PanierController::nombreProduits')) }} </span>
                                                     produit(s) - montant :
-                                                    <b>   {{ total|number_format(2, ',', ' ') }} € </b>
+                                                    <b>   {{ total | currency_convert }}</b>
                         {% else %}
 
                         <span class="badge badge-pill badge-info">  {{ render(controller('App\\Controller\\PanierController::nombreProduits')) }} </span>
                         produit(s) - montant :
-                        <b>   {{ total|number_format(2, ',', ' ') }} € </b>
+                        <b>   {{ total | currency_convert }}</b>
 
                     </h3>
                     <div class="col-md-6 align-self-center btn-group btn-group" role="group">
@@ -93,7 +93,7 @@
                                         </td>
 
                                         <td class="text-right">
-                                            {{ produit.prix }} €
+                                            {{ produit.prix | currency_convert }}
                                         </td>
 
                                         <td>
@@ -111,7 +111,7 @@
                                         </td>
 
                                         <td class="text-right">
-                                            {{ totalProduit|number_format(2, ',', ' ') }} €
+                                            {{ totalProduit | currency_convert }}
                                         </td>
 
                                         <td>
@@ -135,7 +135,7 @@
                                     </th>
 
                                     <th class="text-right">
-                                        {{ total|number_format(2, ',', ' ') }} €
+                                        {{ total| currency_convert }}
                                     </th>
 
                                     <th>
